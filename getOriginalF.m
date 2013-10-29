@@ -1,9 +1,13 @@
 function originalF = getOriginalF (curve)
-    
+
+mydim = size(curve);
+originalF = zeros(mydim(1),mydim(2));
+
 for point=1:length(curve)
-    originalF(1) = myVectorField(1,point);
-    originalF(2) = myVectorField(2,point);
-    originalF(3) = myVectorField(3,point);
+    vectorFieldAtPoint = myVectorField(curve(:,point));
+    originalF(1,point) = vectorFieldAtPoint(1);
+    originalF(2,point) = vectorFieldAtPoint(2);
+    originalF(3,point) = vectorFieldAtPoint(3);
 end
 
 end
