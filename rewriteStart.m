@@ -14,15 +14,6 @@ clear; %Erases the variables so you know what's new
 %getNewF = @getZeroF;
 getNewF = @getIdealF;
 
-% Lorenz System
-% getOriginalF = @myLorenz;
-% Sundial
-getOriginalF = @mySunDial;
-% %Dali
-%getOriginalF = @myDali;
-% %SunDial
-% getOriginalF = @mySunDial;
-
 % The user must also input the requested number of starting points and the
 % maximum number of points to use throughout the process
 
