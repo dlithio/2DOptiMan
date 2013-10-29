@@ -3,44 +3,18 @@ clear; %Erases the variables so you know what's new
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % User Input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%Consider the system du/dt=F(u(t)), where u(t)=(x(t),y(t),z(t)). The inputs
-%below are for a fixed point of the system (a point u for which
-%du/dt=F(u)=0). We also require the 2 eigenvectors of the Jacobian of F
-%that correspond to negative eigenvalues. Initial radius determines how
-%close our initial points are to our fixed point.
-
-%Pick the system to use, uncomment the correct line
-%getNewF = @getZeroF;
-getNewF = @getIdealF;
-
-% The user must also input the requested number of starting points and the
-% maximum number of points to use throughout the process
-
-pointsInitial = 2^8; % the starting number of points on the ring
-pointsMax=2^12; % the maximum number of points to be allowed.
-                       % since the scheme is adaptive, we will output an
-                       % error if the desired number of points exceeds this
-
-% These values determine when the scheme interpolates more points. The
-% default is whenever two points are twice as far as the initial spacing,
-% we insert more points. If you uncomment the following line, you can use
-% an absolute value.
-
-maxDistancePercentage = 1.2; %If this value is 2, it means it allows the
-                           %points to get twice as far as they started
-                           %before interpolating
-                         
-timeResolution = 4; %only for plotting. If 10, it plots every tenth time
-                      %step
-
+% All user specified options are in options.m and myVectorField.m. Look at
+% the files there.
+run(strcat(pwd,'\options.m'))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Initialization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Set the fixed point and Eigenvectors (don't change any of this)
-[dummy fixedPoint eigenVector1 eigenVector2 radius timeTotal timeStepSize] = getOriginalF(zeros(3,3));
+[dummy fixedPointGuess radius timeTotal timeStepSize] = myVectorField([0 0 0]);
+fixedPoint = getFixedPoint(@myVectorField,fixedPointGuess,1e-10);
+[eigenVector1 eigenVector2] = getEigenVectors(@myVectorField,fixedPoint);
 
 % Sets up the manifold storage by setting up arrays of zeros
 timeSteps = ceil(timeTotal/timeStepSize)+1; %The total number of time steps to be taken
@@ -82,7 +56,7 @@ for timeStep = 2:timeSteps
     u(:,1:pointsUsed(timeStep),timeStep)=nextCurve(u(:,1:pointsUsed(timeStep-1),timeStep-1)...
                                                    ,timeStepSize...
                                                    ,getNewF...
-                                                   ,getOriginalF...
+                                                   ,@getOriginalF...
                                                    );
     %Assume each point has the same index (will change if it adapts), this
     %is used for plotting, need to track which point is which as the
@@ -111,7 +85,7 @@ for timeStep = 2:timeSteps
         u(:,1:pointsUsed(timeStep),timeStep)=nextCurve(u(:,1:pointsUsed(timeStep-1),timeStep-1)...
                                                    ,timeStepSize...
                                                    ,getNewF...
-                                                   ,getOriginalF...
+                                                   ,@getOriginalF...
                                                    );
         %Record the new indexes
         index(1:pointsUsed(timeStep),timeStep) = index(1:pointsUsed(timeStep-1),timeStep-1);
