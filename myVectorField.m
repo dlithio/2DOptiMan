@@ -1,4 +1,4 @@
-function fOriginal = myVectorField(point)
+function [fOriginal fixedPointGuess radius timeTotal timeStepSize] = myVectorField(point)
 
 %Lorenz System
 %These first 3 lines are the actual Lorenz Equations
@@ -10,6 +10,10 @@ fOriginal(3)=point(1).*point(2) - 8/3 * point(3);
 fOriginal(1)=-fOriginal(1);
 fOriginal(2)=-fOriginal(2);
 fOriginal(3)=-fOriginal(3);
+fixedPointGuess = [0 0 0];
+radius = 3; %How close initial points are to fixed point
+timeTotal = 20; %How long the system is evolved for
+timeStepSize = .1;
 
 % fOriginal(1) = point(1);
 % fOriginal(2) = point(2);
