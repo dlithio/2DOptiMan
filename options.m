@@ -9,7 +9,7 @@ getNewF = @getIdealF;
 % The user must also input the requested number of starting points and the
 % maximum number of points to use throughout the process
 
-pointsInitial = 2^4; % the starting number of points on the ring
+pointsInitial = 2^8; % the starting number of points on the ring
 pointsMax=2^12; % the maximum number of points to be allowed.
                        % since the scheme is adaptive, we will output an
                        % error if the desired number of points exceeds this
