@@ -1,9 +1,6 @@
 <!doctype html>
 <html>
   <head>
-    <script type="text/javascript"
-      src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>2DOptiMan by dlithio</title>
@@ -33,26 +30,50 @@
 
       </header>
       <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h1>
+<a name="what-does-this-software-do" class="anchor" href="#what-does-this-software-do"><span class="octicon octicon-link"></span></a>What does this software do?</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:
-\[ \frac{1}{n^{2}} \]</p>
+<p>This project contains the files necessary to compute the stable or unstable manifold of a vector field using MATLAB, and then create a vtk file to be read by Paraview for visualization. Specifically, we consider the system \( \frac{du}{dt} = F(u(t)) \), where \( u(t)=(x(t),y(t),z(t)) \) with a fixed point where \(  F(x_0, y_0 , z_0 ) = 0 \). In the case of a stable manifold, we find the set of points such that as \( t \rightarrow \infty \), \( u(t) -&gt; (x_0,y_0,z_0) \). In the case of the unstable manifold, we find the set of points such that as \( t \rightarrow -\infty \), \( u(t) -&gt; (x_0,y_0,z_0) \).</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h1>
+<a name="how-do-you-get-this-to-work" class="anchor" href="#how-do-you-get-this-to-work"><span class="octicon octicon-link"></span></a>How do you get this to work?</h1>
+
+<p>Here we'll guide you through what you need to get this running, and how to visualize your first manifold.</p>
+
+<h2>
+<a name="the-prerequisites" class="anchor" href="#the-prerequisites"><span class="octicon octicon-link"></span></a>The Prerequisites</h2>
+
+<p>You'll need this software before you can get up and running.</p>
+
+<h3>
+<a name="matlab" class="anchor" href="#matlab"><span class="octicon octicon-link"></span></a>MATLAB</h3>
+
+<p>For the computations, you'll need a copy of <a href="http://www.mathworks.com/products/matlab/">MATLAB</a>.. While this software costs money, you may be able to use the trial version, buy the student one, or even use a copy on college or university machines.</p>
+
+<h3>
+<a name="paraview" class="anchor" href="#paraview"><span class="octicon octicon-link"></span></a>ParaView</h3>
+
+<p>For visualization, you'll need to download and install <a href="http://www.paraview.org/paraview/resources/software.php">ParaView</a>. Following the previous link will help you install it for Windows and Mac, and for Debian and Ubuntu you can use</p>
+
+<pre><code>$ sudo apt-get update
+$ sudo apt-get install paraview
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>Many other linux distributions have ParaView in the default repositories, so installation should be just as simple on those machines as well.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="this-software" class="anchor" href="#this-software"><span class="octicon octicon-link"></span></a>This Software</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>Click one of the download links on the left side of this page and put the archive (the zip or the tar file) in a place you can find. You'll need to unzip (or untar) it. In Windows/Mac/Linux, this is usually a matter find finding the file, double clicking it, and finding some unzip (or untar) option.</p>
+
+<h2>
+<a name="my-first-manifold" class="anchor" href="#my-first-manifold"><span class="octicon octicon-link"></span></a>My First Manifold</h2>
+
+<p>Have you installed MATLAB and Paraview? Great! Let's visualize our first manifold.
+1. Your first goal is to run main.m. If you've install the graphical MATLAB, simply open up MATLAB, click on "file" -&gt; "open", then navigate to where you have the file and select it.</p>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="visualizing-your-own-manifold" class="anchor" href="#visualizing-your-own-manifold"><span class="octicon octicon-link"></span></a>Visualizing Your Own Manifold</h3>
 
 <p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
