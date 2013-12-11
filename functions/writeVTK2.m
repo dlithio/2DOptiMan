@@ -31,7 +31,7 @@ for timeStep = 1:(length(pointsUsed2)-1)
 end
 
 %We open the file and write the header and the points that will be used
-fileID = fopen('test.vtk','w');
+fileID = fopen('manifold.vtk','w');
 fprintf(fileID,'# vtk DataFile Version 3.1\n');
 fprintf(fileID,'this is an output from the manifold program\n');
 fprintf(fileID,'ASCII\n');
