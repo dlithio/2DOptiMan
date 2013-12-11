@@ -6,7 +6,7 @@ clear; %Erases the variables so you know what's new
 % All user specified options are in options.m and myVectorField.m. Look at
 % the files there.
 addpath(strcat(pwd,'\functions\'))
-run(strcat(pwd,'\options.m'))
+run(strcat(pwd,'\functions\options.m'))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Initialization
