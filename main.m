@@ -5,6 +5,7 @@ clear; %Erases the variables so you know what's new
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % All user specified options are in options.m and myVectorField.m. Look at
 % the files there.
+addpath(pwd)
 addpath(strcat(pwd,'\functions\'))
 run(strcat(pwd,'\functions\options.m'))
 
@@ -114,6 +115,10 @@ toc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plotting the results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+disp(sprintf('The manifold has been computed, we now write it to a file. \n'))
+
 writeVTK2(pointsUsed(1:timeResolution:end),...
    index(:,1:timeResolution:end),...
    u(:,:,1:timeResolution:end));
+
+disp(sprintf('Your manifold has been written to a file, use ParaView to view it.'))
