@@ -48,7 +48,7 @@
 <h3>
 <a name="matlab" class="anchor" href="#matlab"><span class="octicon octicon-link"></span></a>MATLAB</h3>
 
-<p>For the computations, you'll need a copy of <a href="http://www.mathworks.com/products/matlab/">MATLAB</a>.. While this software costs money, you may be able to use the trial version, buy the student one, or even use a copy on college or university machines.</p>
+<p>For the computations, you'll need a copy of <a href="http://www.mathworks.com/products/matlab/">MATLAB</a>. While this software costs money, you may be able to use the trial version, buy the student one, or even use a copy on college or university machines.</p>
 
 <h3>
 <a name="paraview" class="anchor" href="#paraview"><span class="octicon octicon-link"></span></a>ParaView</h3>
@@ -69,23 +69,17 @@ $ sudo apt-get install paraview
 <h2>
 <a name="my-first-manifold" class="anchor" href="#my-first-manifold"><span class="octicon octicon-link"></span></a>My First Manifold</h2>
 
-<p>Have you installed MATLAB and Paraview? Great! Let's visualize our first manifold.
-1. Your first goal is to run main.m. If you've install the graphical MATLAB, simply open up MATLAB, click on "file" -&gt; "open", then navigate to where you have the file and select it.</p>
+<p>Have you installed MATLAB and Paraview? Great! Let's visualize our first manifold.</p>
 
-<h3>
-<a name="visualizing-your-own-manifold" class="anchor" href="#visualizing-your-own-manifold"><span class="octicon octicon-link"></span></a>Visualizing Your Own Manifold</h3>
+<ol>
+<li><p>Your first goal is to run main.m. If you've install the graphical MATLAB, simply open up MATLAB, click on "file" -&gt; "open", then navigate to where you have the file and select it. Run this file: in some versions of matlab, there is a green triangle pointing right on the top bar, if you can't find that, hitting F5 will probably do the trick. MATLAB will now give you some message about changing the path or working directory, select the option that is closest to "Change Directory" (to the one containing main.m).</p></li>
+<li><p>At this point you will be prompted for several options. If you just hit enter, the default is selected. Hit enter to select the default at every prompt.</p></li>
+<li><p>Just wait while the program does its work! The current progress (out of 100) will be printing onto the screen, once it reaches 100, you'll see it pause for a little as it writes the output file, and then a message will print that the file has been written.</p></li>
+<li><p>Open up ParaView. Click "File"-&gt;"Open", navigate to the folder that contains the program, and double click on the file "manifold.vtk". In the Pipeline Browser (within ParaView), select "manifold.vtk", then click "Apply" in the Properties Pane. You should see your manifold! You can change options such as coloring and whether you want to see the wireframe or not in the Properties Pane.</p></li>
+</ol><h2>
+<a name="visualizing-your-own-manifold" class="anchor" href="#visualizing-your-own-manifold"><span class="octicon octicon-link"></span></a>Visualizing Your Own Manifold</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Before performing the steps in "My First Manifold", you'll want to edit the file myVectorField.m, which is in the same directory as main.m. Instructions for editing that file are found within the file itself.</p>
       </section>
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
