@@ -9,7 +9,7 @@ if str == '2'
 else
     getNewF = @getIdealF;
 end
-
+clear str
 
 % The user must also input the requested number of starting points and the
 % maximum number of points to use throughout the process
@@ -20,6 +20,7 @@ if isempty(str)
 else
     pointsInitial = str2num(str);
 end
+clear str
 
 str = input('Enter the maximum number of points (default 2^12).\n','s');
 if isempty(str)
@@ -29,6 +30,7 @@ if isempty(str)
 else
     pointsMax = str2num(str);
 end
+clear str
 
 
 % These values determine when the scheme interpolates more points. The
@@ -44,6 +46,7 @@ if isempty(str)
 else
     maxDistancePercentage = str2num(str);
 end
+clear str
 
 str = input('When should the scheme remove points? \n Entering .25 would mean that you allow the \n points to be a quarter as far \n as when they started (default .25).\n','s');
 if isempty(str)
@@ -53,6 +56,7 @@ if isempty(str)
 else
     minDistancePercentage = str2num(str);
 end                    
+clear str
 
 str = input('Plot every nth geodesic (default 5).\n','s');
 if isempty(str)
@@ -61,6 +65,7 @@ if isempty(str)
 else
     timeResolution = str2num(str);
 end
+clear str
 
 fixedPointGuess = input('Guess the fixed point. Your guess should \n be something like "[1 2 3]" without quotes. (default [0 0 0]) \n');
 if isempty(str)
@@ -68,6 +73,7 @@ if isempty(str)
 else
     fixedPoint = fixedPointPrompt(fixedPointGuess);
 end
+clear str
 
 str = input('Select the gradient calculation method: \n 1) Central difference - quick and less accurate  (default) \n 2) 5th Order FD Weights - slower and accurate \n 3) 5th order polynomial - slower and accurate. \n','s');
 if isempty(str)  || str == '1'
@@ -82,6 +88,7 @@ else
     accstr = input('How many points should be used on each side of a point \n to find the gradient? \n (enter an integer larger than or equal to 1): \n','s');
     gradAcc = str2num(accstr);
 end
+clear str
 
 str = input('Select the interpolation method: \n 1) Matlab (default) \n 2) Manual Finite Difference. \n','s');
 if str == '2'
@@ -91,13 +98,13 @@ if str == '2'
 else
     getInterp = @getInterpMATLAB;
     accstr = input('Which MATLAB inerpolation method?: \n 1) Spline (default) \n 2) Linear. \n 3) Piecewise Cubic Hermite \n 4) Cubic: \n','s');
-    if isempty(accstr) || str == '1'
-        interpAcc = 'spline';
+    if accstr == '4'
+        interpAcc = 'cubic';
     elseif accstr == '2'
         interpAcc = 'linear';
     elseif accstr == '3'
         interpAcc = 'pchip';
     else
-        interpAcc = 'cubic';
+        interpAcc = 'spline';
     end
 end                    
