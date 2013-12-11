@@ -36,9 +36,9 @@ end
 % we insert more points. If you uncomment the following line, you can use
 % an absolute value.
 
-str = input('When should the scheme adapt? \n Entering 2 would mean that you allow the \n points to be twice as far \n as when they started (default 1.5).\n','s');
+str = input('When should the scheme adapt? \n Entering 2 would mean that you allow the \n points to be twice as far \n as when they started (default 2).\n','s');
 if isempty(str)
-    maxDistancePercentage = 1.5; %If this value is 2, it means it allows the
+    maxDistancePercentage = 2; %If this value is 2, it means it allows the
                            %points to get twice as far as they started
                            %before interpolating
 else
@@ -69,24 +69,24 @@ else
     fixedPoint = fixedPointPrompt(fixedPointGuess);
 end
 
-str = input('Select the gradient calculation method: \n 1) Central difference - quick and inaccurate  (default) \n 2) 5th Order FD Weights - slower and accurate \n 3) 5th order polynomial - slower and accurate. \n','s');
+str = input('Select the gradient calculation method: \n 1) Central difference - quick and less accurate  (default) \n 2) 5th Order FD Weights - slower and accurate \n 3) 5th order polynomial - slower and accurate. \n','s');
 if isempty(str)  || str == '1'
     myGradient = @gradientFast;
-    gradAcc = 1;
+    gradAcc = 1; %not used in this case but needed as a dummy variable
 elseif str == '2'
     myGradient = @gradientFD;
-    accstr = input('How many points should be used on each side \n to find the gradient? \n (enter an integer larger than or equal to 1): \n','s');
+    accstr = input('How many points should be used on each side of a point \n to find the gradient? \n (enter an integer larger than or equal to 1): \n','s');
     gradAcc = str2num(accstr);
 else
     myGradient = @gradientPoly;
-    accstr = input('How many points should be used on each side \n to find the gradient? \n (enter an integer larger than or equal to 1): \n','s');
+    accstr = input('How many points should be used on each side of a point \n to find the gradient? \n (enter an integer larger than or equal to 1): \n','s');
     gradAcc = str2num(accstr);
 end
 
-str = input('Select the interpolation method: \n 1) Matlab \n 2) Manual Finite Difference (default). \n','s');
-if isempty(str)  || str == '2'
+str = input('Select the interpolation method: \n 1) Matlab (default) \n 2) Manual Finite Difference. \n','s');
+if str == '2'
     getInterp = @getInterpFD;
-    accstr = input('How many points should be used on each side \n (enter an integer larger than or equal to 1): \n','s');
+    accstr = input('How many points should be used on each side of where we want to interpolate \n (enter an integer larger than or equal to 1): \n','s');
     interpAcc = str2num(accstr);
 else
     getInterp = @getInterpMATLAB;
@@ -100,5 +100,4 @@ else
     else
         interpAcc = 'cubic';
     end
-end
-                      
+end                    
