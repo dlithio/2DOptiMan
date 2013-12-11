@@ -68,7 +68,7 @@ end
 clear str
 
 fixedPointGuess = input('Guess the fixed point. Your guess should \n be something like "[1 2 3]" without quotes. (default [0 0 0]) \n');
-if isempty(str)
+if isempty(fixedPointGuess)
     fixedPoint = fixedPointPrompt([0 0 0]);
 else
     fixedPoint = fixedPointPrompt(fixedPointGuess);
