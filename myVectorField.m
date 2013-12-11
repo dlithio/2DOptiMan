@@ -14,7 +14,7 @@ fOriginal(2)=-fOriginal(2);
 fOriginal(3)=-fOriginal(3);
 %The following constants need to be specified for any vectorfield
 radius = 3; %How close initial points are to the fixed point
-timeTotal = 10; %How long the system is evolved for
+timeTotal = 90; %How long the system is evolved for
 timeStepSize = .1; %How far we go in each timeStep
 
 % %%%%%%%%%%%%%%%%%%%
