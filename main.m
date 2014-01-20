@@ -10,10 +10,10 @@ try
     % If the current working directory contains main.m, this runs options.m
     % and then adds the necessary functions to the path if they're not
     % there yet
-    run(strcat(pwd,'\functions\options.m'))
     if  exist('getEigenVectors') == 0
         addpath(strcat(pwd,'\functions\'))
     end
+    run(strcat(pwd,'\functions\options.m'))
 catch
     % If the current working directoy does not contain main.m, it makes the
     % user locate it and then changes the current working directory. It
@@ -22,10 +22,10 @@ catch
     try
         [FileName,PathName,FilterIndex] = uigetfile('main.m','Locate main.m in the original download folder','main.m');
         cd(PathName);
-        run(strcat(pwd,'\functions\options.m'))
         if  exist('getEigenVectors') == 0
             addpath(strcat(pwd,'\functions\'))
         end
+        run(strcat(pwd,'\functions\options.m'))
     catch
         % Final error catch. Most likely to exectute if user is in command
         % line mode and did not start matlab in the proper folder.
