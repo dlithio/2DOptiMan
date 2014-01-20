@@ -5,9 +5,33 @@ clear; %Erases the variables so you know what's new
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % All user specified options are in options.m and myVectorField.m. Look at
 % the files there.
-addpath(pwd)
-addpath(strcat(pwd,'\functions\'))
-run(strcat(pwd,'\functions\options.m'))
+
+try
+    % If the current working directory contains main.m, this runs options.m
+    % and then adds the necessary functions to the path if they're not
+    % there yet
+    run(strcat(pwd,'\functions\options.m'))
+    if  exist('getEigenVectors') == 0
+        addpath(strcat(pwd,'\functions\'))
+    end
+catch
+    % If the current working directoy does not contain main.m, it makes the
+    % user locate it and then changes the current working directory. It
+    % also adds the necessary functions if they're not there.
+    wait_for_me = input('MATLAB was unable to find options.m in the original download folder. Please press any key and then use the file dialog to locate it yourself. \n','s');
+    try
+        [FileName,PathName,FilterIndex] = uigetfile('main.m','Locate main.m in the original download folder','main.m');
+        cd(PathName);
+        run(strcat(pwd,'\functions\options.m'))
+        if  exist('getEigenVectors') == 0
+            addpath(strcat(pwd,'\functions\'))
+        end
+    catch
+        % Final error catch. Most likely to exectute if user is in command
+        % line mode and did not start matlab in the proper folder.
+        error('MATLAB was unable to launch the file selection menu. Please launch matlab from the folder that containts main.m and retry this process.');
+    end
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Initialization
@@ -50,9 +74,8 @@ tic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Main Program Loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+reverseStr = ''; %for the progress indicator
 for timeStep = 2:timeSteps
-    %Print the progress
-    timeStep/timeSteps*100
     %Assume same number of points used (will change if it adapts)
     pointsUsed(timeStep) = pointsUsed(timeStep-1);
     %Get the new u
@@ -110,7 +133,13 @@ for timeStep = 2:timeSteps
         %We will be using less points, note that
         pointsUsed(timeStep)=pointsUsed(timeStep)-sum(badPoints);
     end
+   %Print the progress
+   percentDone = timeStep/timeSteps*100;
+   msg = sprintf('Percent done: %3.1f', percentDone);
+   fprintf([reverseStr, msg]);
+   reverseStr = repmat(sprintf('\b'), 1, length(msg));
 end
+disp(sprintf('\n'))
 toc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plotting the results
