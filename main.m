@@ -11,8 +11,9 @@ try
     % and then adds the necessary functions to the path if they're not
     % there yet
     if  exist('getEigenVectors') == 0
-        addpath(strcat(pwd,'\functions\'))
+        path(path,strcat(pwd,'\functions\'));
     end
+    path(path,pwd);
     run(strcat(pwd,'\functions\options.m'))
 catch
     % If the current working directoy does not contain main.m, it makes the
@@ -23,8 +24,9 @@ catch
         [FileName,PathName,FilterIndex] = uigetfile('main.m','Locate main.m in the original download folder','main.m');
         cd(PathName);
         if  exist('getEigenVectors') == 0
-            addpath(strcat(pwd,'\functions\'))
+            path(path,strcat(pwd,'\functions\'));
         end
+        path(path,pwd);
         run(strcat(pwd,'\functions\options.m'))
     catch
         % Final error catch. Most likely to exectute if user is in command
