@@ -1,4 +1,4 @@
-function myreturn = writeVTK2(pointsUsed2,index2,data)
+function myreturn = writeVTK2(pointsUsed2,index2,data,filename)
 
 closestPoints = closestPointArray(data,pointsUsed2,length(pointsUsed2));
 %This first loop runs just to get totals that are necessary for the vtk
@@ -31,7 +31,7 @@ for timeStep = 1:(length(pointsUsed2)-1)
 end
 
 %We open the file and write the header and the points that will be used
-fileID = fopen('manifold.vtk','w');
+fileID = fopen(filename,'w');
 fprintf(fileID,'# vtk DataFile Version 3.1\n');
 fprintf(fileID,'this is an output from the manifold program\n');
 fprintf(fileID,'ASCII\n');
