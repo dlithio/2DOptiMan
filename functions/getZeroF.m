@@ -2,7 +2,7 @@
 %t, the number of points, and the numberOfVariables and calls the 
 %function getOriginalF to return fIdeal.
 
-function fZero = getZeroF (curve,getOriginalF, myGradient,gradAccu,timeStep,index,pointsUsed,pointsInitial)
+function fZero = getZeroF (curve,getOriginalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor)
 
 %------------------------------------------------------
 % Finds the normalized original tangent vector and its non-normalized derivative
@@ -18,7 +18,7 @@ dotProductFT=dot(fOriginal, tangentVector);
 differenceVector=-repmat(dotProductFT,3,1) .* tangentVector;
 
 errors = findError(u,timeStep-1,index,pointsUsed,pointsInitial);
-differenceVector2=0*repmat((-errors'),3,1) .* tangentVector;
+differenceVector2=feedback_factor*repmat((-errors'),3,1) .* tangentVector;
 
 fZero=fOriginal + differenceVector-differenceVector2;
 %Normalize the vector                      

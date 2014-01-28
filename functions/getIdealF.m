@@ -2,7 +2,7 @@
 %t, the number of points, and the numberOfVariables and calls the 
 %function getOriginalF to return fIdeal.
 
-function fIdeal = getIdealF (curve,getOriginalF,myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial)
+function fIdeal = getIdealF (curve,getOriginalF,myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor)
 
 %------------------------------------------------------
 % Finds the normalized original tangent vector and its non-normalized derivative
@@ -36,7 +36,7 @@ dotProductFT=dot(fOriginal, tangentVector);
 % Computes the vector by which fOriginal needs to be altered
 differenceVector=repmat((phi-dotProductFT),3,1) .* tangentVector;
 errors = findError(u,timeStep-1,index,pointsUsed,pointsInitial);
-differenceVector2=0*repmat((-errors'),3,1) .* tangentVector;
+differenceVector2=feedback_factor*repmat((-errors'),3,1) .* tangentVector;
 fIdeal=fOriginal + differenceVector-differenceVector2; %Normalizing the vector at this point
                                      %would change the tangential component
                                      %(remember that it is not zero).
