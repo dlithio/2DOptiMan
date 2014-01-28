@@ -107,4 +107,23 @@ else
     else
         interpAcc = 'spline';
     end
-end                    
+end
+clear str
+
+str = input('What should the name of the manifold be (default manifold.vtk).\n','s');
+if isempty(str)
+    filename = 'manifold.vtk'; 
+else
+    filename = str;
+end
+clear str
+
+str = input('What should the feedback factor be (default 10).\n','s');
+if isempty(str)
+    feedback_factor=10; % the maximum number of points to be allowed.
+                       % since the scheme is adaptive, we will output an
+                       % error if the desired number of points exceeds this
+else
+    feedback_factor = str2num(str);
+end
+clear str
