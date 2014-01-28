@@ -1,37 +1,38 @@
-clc; %Clears the workspace so you can see what's new
-clear; %Erases the variables so you know what's new
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % User Input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % All user specified options are in options.m and myVectorField.m. Look at
 % the files there.
-
-try
-    % If the current working directory contains main.m, this runs options.m
-    % and then adds the necessary functions to the path if they're not
-    % there yet
-    if  exist('getEigenVectors') == 0
-        path(path,strcat(pwd,'\functions\'));
-    end
-    path(path,pwd);
-    run(strcat(pwd,'\functions\options.m'))
-catch
-    % If the current working directoy does not contain main.m, it makes the
-    % user locate it and then changes the current working directory. It
-    % also adds the necessary functions if they're not there.
-    wait_for_me = input('MATLAB was unable to find options.m in the original download folder. Please press any key and then use the file dialog to locate it yourself. \n','s');
+if exist('options_skip') == 0
+    clc; %Clears the workspace so you can see what's new
+    clear; %Erases the variables so you know what's new
     try
-        [FileName,PathName,FilterIndex] = uigetfile('main.m','Locate main.m in the original download folder','main.m');
-        cd(PathName);
+        % If the current working directory contains main.m, this runs options.m
+        % and then adds the necessary functions to the path if they're not
+        % there yet
         if  exist('getEigenVectors') == 0
             path(path,strcat(pwd,'\functions\'));
         end
         path(path,pwd);
         run(strcat(pwd,'\functions\options.m'))
     catch
-        % Final error catch. Most likely to exectute if user is in command
-        % line mode and did not start matlab in the proper folder.
-        error('MATLAB was unable to launch the file selection menu. Please launch matlab from the folder that containts main.m and retry this process.');
+        % If the current working directoy does not contain main.m, it makes the
+        % user locate it and then changes the current working directory. It
+        % also adds the necessary functions if they're not there.
+        wait_for_me = input('MATLAB was unable to find the original download folder. Please press any key and then use the file dialog to locate main.m yourself. \n','s');
+        try
+            [FileName,PathName,FilterIndex] = uigetfile('main.m','Locate main.m in the original download folder','main.m');
+            cd(PathName);
+            if  exist('getEigenVectors') == 0
+                path(path,strcat(pwd,'\functions\'));
+            end
+            path(path,pwd);
+            run(strcat(pwd,'\functions\options.m'))
+        catch
+            % Final error catch. Most likely to exectute if user is in command
+            % line mode and did not start matlab in the proper folder.
+            error('MATLAB was unable to launch the file selection menu. Please launch matlab from the folder that containts main.m and retry this process.');
+        end
     end
 end
 
@@ -85,7 +86,7 @@ for timeStep = 2:timeSteps
                                                    ,timeStepSize...
                                                    ,getNewF,myGradient,gradAcc...
                                                    ,@getOriginalF...
-                                                   ,maxDistance,u,timeStep,index,pointsUsed,pointsInitial);
+                                                   ,maxDistance,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor);
     %Assume each point has the same index (will change if it adapts), this
     %is used for plotting, need to track which point is which as the
     %manifold grows and interpolates.
@@ -117,7 +118,7 @@ for timeStep = 2:timeSteps
                                                    ,timeStepSize...
                                                    ,getNewF,myGradient,gradAcc...
                                                    ,@getOriginalF...
-                                                   ,maxDistance,u,timeStep,tempIndex,tempPointsUsed,pointsInitial);
+                                                   ,maxDistance,u,timeStep,tempIndex,tempPointsUsed,pointsInitial,feedback_factor);
         %Record the new indexes
         index(1:pointsUsed(timeStep),timeStep) = tempIndex(1:tempPointsUsed(timeStep-1),timeStep-1);    
     end
@@ -150,6 +151,7 @@ disp(sprintf('The manifold has been computed, we now write it to a file. \n'))
 
 writeVTK2(pointsUsed(1:timeResolution:end),...
    index(:,1:timeResolution:end),...
-   u(:,:,1:timeResolution:end));
+   u(:,:,1:timeResolution:end),...
+   filename);
 
 disp(sprintf('Your manifold has been written to a file, use ParaView to view it.'))
