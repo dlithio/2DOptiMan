@@ -2,7 +2,7 @@
 %t, the number of points, and the numberOfVariables and calls the 
 %function getOriginalF to return fIdeal.
 
-function fIdeal = getIdealF (curve,getOriginalF,myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor)
+function fIdeal = getIdealF (curve,getOriginalF,myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier)
 
 %------------------------------------------------------
 % Finds the normalized original tangent vector and its non-normalized derivative
@@ -21,7 +21,7 @@ tangentDerivativeVector = myGradient(getSVector(curve),tangentVector,gradAcc); %
 % Finds phi(s,t) so that fIdeal can be computed
 %---------------------------------------------------
 curveSVector=getSVector(curve);
-fOriginal=getOriginalF(curve);
+fOriginal=getOriginalF(curve,field_multiplier);
 dotProduct=dot(fOriginal, tangentDerivativeVector);
 dotProductFTsCumIntegral=cumtrapz(curveSVector,dotProduct);
 

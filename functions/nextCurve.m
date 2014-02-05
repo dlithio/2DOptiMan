@@ -4,12 +4,12 @@
 % of points and the number of variables. It automatically calls the
 % function getIdealF to retreive the vector field.
 
-function uNew = nextCurve (curve , timeStepSize, getF, myGradient,gradAcc, originalF, distanceMax,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor)
+function uNew = nextCurve (curve , timeStepSize, getF, myGradient,gradAcc, originalF, distanceMax,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier)
     
-    k1=timeStepSize*getF(curve,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor);
-    k2=timeStepSize*getF(curve+.5*k1,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor);
-    k3=timeStepSize*getF(curve+.5*k2,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor);
-    k4=timeStepSize*getF(curve+k3,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor);
+    k1=timeStepSize*getF(curve,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier);
+    k2=timeStepSize*getF(curve+.5*k1,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier);
+    k3=timeStepSize*getF(curve+.5*k2,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier);
+    k4=timeStepSize*getF(curve+k3,originalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier);
 
     uNew = curve+1/6*(k1+2*k2+2*k3+k4);
     

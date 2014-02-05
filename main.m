@@ -41,7 +41,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Set the fixed point and Eigenvectors (don't change any of this)
-[eigenVector1 eigenVector2 eigenValue1 eigenValue2] = getEigenVectors(@myVectorField,fixedPoint);
+[eigenVector1 eigenVector2 eigenValue1 eigenValue2 field_multiplier] = getEigenVectors(@myVectorField,fixedPoint);
 
 % Sets up the manifold storage by setting up arrays of zeros
 timeSteps = ceil(timeTotal/timeStepSize)+1; %The total number of time steps to be taken
@@ -63,8 +63,8 @@ pointsUsed = zeros(timeSteps,1); %An array to keep track of how many
 %Now actually set the initial values in the arrays
 for point = 1:(pointsInitial) %This loop sets in initial values for the manifold
     u(:,point,1) = fixedPoint ...
-                 + eigenValue1*radius*sin((point-1)/pointsInitial*2*pi)*eigenVector1 ...
-                 + eigenValue2*radius*cos((point-1)/pointsInitial*2*pi)*eigenVector2;
+                 + eigenValue1*sin((point-1)/pointsInitial*2*pi)*eigenVector1 ...
+                 + eigenValue2*cos((point-1)/pointsInitial*2*pi)*eigenVector2;
 end
 pointsUsed(1) = pointsInitial; %Sets the number of points that are being used
 index(1:pointsUsed(1),1) = 1:pointsUsed(1);
@@ -85,7 +85,7 @@ for timeStep = 2:timeSteps
                                                    ,timeStepSize...
                                                    ,getNewF,myGradient,gradAcc...
                                                    ,@getOriginalF...
-                                                   ,maxDistance,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor);
+                                                   ,maxDistance,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier);
     %Assume each point has the same index (will change if it adapts), this
     %is used for plotting, need to track which point is which as the
     %manifold grows and interpolates.
@@ -117,7 +117,7 @@ for timeStep = 2:timeSteps
                                                    ,timeStepSize...
                                                    ,getNewF,myGradient,gradAcc...
                                                    ,@getOriginalF...
-                                                   ,maxDistance,u,timeStep,tempIndex,tempPointsUsed,pointsInitial,feedback_factor);
+                                                   ,maxDistance,u,timeStep,tempIndex,tempPointsUsed,pointsInitial,feedback_factor,field_multiplier);
         %Record the new indexes
         index(1:pointsUsed(timeStep),timeStep) = tempIndex(1:tempPointsUsed(timeStep-1),timeStep-1);    
     end

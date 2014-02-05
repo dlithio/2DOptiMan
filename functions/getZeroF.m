@@ -2,14 +2,14 @@
 %t, the number of points, and the numberOfVariables and calls the 
 %function getOriginalF to return fIdeal.
 
-function fZero = getZeroF (curve,getOriginalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor)
+function fZero = getZeroF (curve,getOriginalF, myGradient,gradAcc,u,timeStep,index,pointsUsed,pointsInitial,feedback_factor,field_multiplier)
 
 %------------------------------------------------------
 % Finds the normalized original tangent vector and its non-normalized derivative
 %------------------------------------------------------
 tangentVector = normc(myGradient(getSVector(curve),curve,gradAcc)); % The normalized tangent vector
 
-fOriginal=getOriginalF(curve);
+fOriginal=getOriginalF(curve,field_multiplier);
 
 % Gets the dot product of the original F and T
 dotProductFT=dot(fOriginal, tangentVector);
