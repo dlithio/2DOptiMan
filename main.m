@@ -19,7 +19,7 @@ if exist('options_skip') == 0
         % If the current working directoy does not contain main.m, it makes the
         % user locate it and then changes the current working directory. It
         % also adds the necessary functions if they're not there.
-        wait_for_me = input('MATLAB was unable to find the original download folder. Please press any key and then use the file dialog to locate main.m yourself. \n','s');
+        wait_for_me = input('MATLAB was unable to find the original download folder. \n Please press any key and then use the file dialog to locate main.m yourself. \n','s');
         try
             [FileName,PathName,FilterIndex] = uigetfile('main.m','Locate main.m in the original download folder','main.m');
             cd(PathName);
@@ -31,7 +31,7 @@ if exist('options_skip') == 0
         catch
             % Final error catch. Most likely to exectute if user is in command
             % line mode and did not start matlab in the proper folder.
-            error('MATLAB was unable to launch the file selection menu. Please launch matlab from the folder that containts main.m and retry this process.');
+            error('MATLAB was unable to launch the file selection menu. \n Please launch matlab from the folder that containts main.m \n and retry this process.');
         end
     end
 end
@@ -41,8 +41,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Set the fixed point and Eigenvectors (don't change any of this)
-[dummy radius timeTotal timeStepSize] = myVectorField([0 0 0]);
-[eigenVector1 eigenVector2] = getEigenVectors(@myVectorField,fixedPoint);
+[eigenVector1 eigenVector2 eigenValue1 eigenValue2] = getEigenVectors(@myVectorField,fixedPoint);
 
 % Sets up the manifold storage by setting up arrays of zeros
 timeSteps = ceil(timeTotal/timeStepSize)+1; %The total number of time steps to be taken
@@ -64,8 +63,8 @@ pointsUsed = zeros(timeSteps,1); %An array to keep track of how many
 %Now actually set the initial values in the arrays
 for point = 1:(pointsInitial) %This loop sets in initial values for the manifold
     u(:,point,1) = fixedPoint ...
-                 + radius*sin((point-1)/pointsInitial*2*pi)*eigenVector1 ...
-                 + radius*cos((point-1)/pointsInitial*2*pi)*eigenVector2;
+                 + eigenValue1*radius*sin((point-1)/pointsInitial*2*pi)*eigenVector1 ...
+                 + eigenValue2*radius*cos((point-1)/pointsInitial*2*pi)*eigenVector2;
 end
 pointsUsed(1) = pointsInitial; %Sets the number of points that are being used
 index(1:pointsUsed(1),1) = 1:pointsUsed(1);
