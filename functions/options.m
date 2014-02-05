@@ -127,3 +127,33 @@ else
     feedback_factor = str2num(str);
 end
 clear str
+
+str = input('How far do you want to evolve the manifold (default 90).\n','s');
+if isempty(str)
+    timeTotal=90; % the maximum number of points to be allowed.
+                       % since the scheme is adaptive, we will output an
+                       % error if the desired number of points exceeds this
+else
+    timeTotal = str2num(str);
+end
+clear str
+
+str = input('How far from the fixed point should your initial ring of points be (default 3).\n','s');
+if isempty(str)
+    radius=3; % the maximum number of points to be allowed.
+                       % since the scheme is adaptive, we will output an
+                       % error if the desired number of points exceeds this
+else
+    radius = str2num(str);
+end
+clear str
+
+str = input('How far should you go for each time step (default 0.1).\n','s');
+if isempty(str)
+    timeStepSize=.1; % the maximum number of points to be allowed.
+                       % since the scheme is adaptive, we will output an
+                       % error if the desired number of points exceeds this
+else
+    timeStepSize = str2num(str);
+end
+clear str
