@@ -38,9 +38,9 @@ clear str
 % we insert more points. If you uncomment the following line, you can use
 % an absolute value.
 
-str = input('When should the scheme adapt? \n Entering 2 would mean that you allow the \n points to be twice as far \n as when they started (default 2).\n','s');
+str = input('When should the scheme adapt? \n Entering 2 would mean that you allow the \n points to be twice as far \n as when they started (default 4).\n','s');
 if isempty(str)
-    maxDistancePercentage = 2; %If this value is 2, it means it allows the
+    maxDistancePercentage = 4; %If this value is 2, it means it allows the
                            %points to get twice as far as they started
                            %before interpolating
 else
@@ -118,11 +118,9 @@ else
 end
 clear str
 
-str = input('What should the feedback factor be (default 10).\n','s');
+str = input('What should the feedback factor be?\n This adds a force to force points that have \n become unequally spaced back to equal spacing. (Default 0) \n','s');
 if isempty(str)
-    feedback_factor=10; % the maximum number of points to be allowed.
-                       % since the scheme is adaptive, we will output an
-                       % error if the desired number of points exceeds this
+    feedback_factor=0;
 else
     feedback_factor = str2num(str);
 end
@@ -130,9 +128,7 @@ clear str
 
 str = input('How far do you want to evolve the manifold (default 90).\n','s');
 if isempty(str)
-    timeTotal=90; % the maximum number of points to be allowed.
-                       % since the scheme is adaptive, we will output an
-                       % error if the desired number of points exceeds this
+    timeTotal=90; 
 else
     timeTotal = str2num(str);
 end
@@ -140,9 +136,7 @@ clear str
 
 str = input('How far from the fixed point should your initial ring of points be (default 3).\n','s');
 if isempty(str)
-    radius=3; % the maximum number of points to be allowed.
-                       % since the scheme is adaptive, we will output an
-                       % error if the desired number of points exceeds this
+    radius=3; 
 else
     radius = str2num(str);
 end
@@ -150,9 +144,7 @@ clear str
 
 str = input('How far should you go for each time step (default 0.1).\n','s');
 if isempty(str)
-    timeStepSize=.1; % the maximum number of points to be allowed.
-                       % since the scheme is adaptive, we will output an
-                       % error if the desired number of points exceeds this
+    timeStepSize=.1;
 else
     timeStepSize = str2num(str);
 end
