@@ -1,8 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % User Input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% All user specified options are in options.m and myVectorField.m. Look at
-% the files there.
+% All user specified options are in myVectorField.m. Look at
+% the files there. Then run the file here (according to the 
+% instructions on http://dlithio.github.io/2DOptiMan/).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% User Input
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if exist('options_skip') == 0
     clc; %Clears the workspace so you can see what's new
     clear; %Erases the variables so you know what's new
@@ -11,10 +17,12 @@ if exist('options_skip') == 0
         % and then adds the necessary functions to the path if they're not
         % there yet
         if  exist('getEigenVectors') == 0
-            path(path,strcat(pwd,'\functions\'));
+            my_new_folder = fullfile(pwd,'functions');
+            path(path,my_new_folder);
         end
         path(path,pwd);
-        run(strcat(pwd,'\functions\options.m'))
+        options_file = fullfile(pwd,'functions','options.m');
+        run(options_file)
     catch
         % If the current working directoy does not contain main.m, it makes the
         % user locate it and then changes the current working directory. It
@@ -24,10 +32,12 @@ if exist('options_skip') == 0
             [FileName,PathName,FilterIndex] = uigetfile('main.m','Locate main.m in the original download folder','main.m');
             cd(PathName);
             if  exist('getEigenVectors') == 0
-                path(path,strcat(pwd,'\functions\'));
+                my_new_folder = fullfile(pwd,'functions');
+                path(path,my_new_folder);
             end
             path(path,pwd);
-            run(strcat(pwd,'\functions\options.m'))
+            options_file = fullfile(pwd,'functions','options.m');
+            run(options_file)
         catch
             % Final error catch. Most likely to exectute if user is in command
             % line mode and did not start matlab in the proper folder.
